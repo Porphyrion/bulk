@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <vector>
-//#include "commadline.h"
+#include "commadline.h"
 #include "observer.h"
 
 
