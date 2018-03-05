@@ -3,7 +3,8 @@
 void bulk::LogObserver::update(int s){
     if(s == start){
         bulkBeginTime = boost::lexical_cast<std::string>(time(nullptr));
-        bulkBeginTime.append(".log");
+        bulkFileName = bulkBeginTime;
+        bulkFileName.append(".log");
     }
     else if(s == stop){
         std::ofstream bulkFile(bulkBeginTime);
@@ -14,5 +15,6 @@ void bulk::LogObserver::update(int s){
     }
     else if(s == dynamic_start){
         bulkBeginTime.clear();
+        bulkFileName.clear();
     }
 };

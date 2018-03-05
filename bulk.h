@@ -68,5 +68,6 @@ namespace bulk
 
         CommandLine * cm;
         std::string bulkBeginTime;
+        std::string bulkFileName;
     };
 }
