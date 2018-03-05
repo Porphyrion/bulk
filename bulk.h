@@ -9,6 +9,7 @@
 
 #define start 1
 #define stop 2
+#define last_bulk 3
 
 namespace bulk
 {
@@ -27,10 +28,10 @@ namespace bulk
         void Commnand(std::string& line);
         void setStatus(int status);
 
-        std::vector<std::string> commandBlock; // retutn unique_ptr
+        std::vector<std::string> commandBlock;
     private:
         std::vector<Observer *> subs;
-        int nowCommand;
+        int status;
         bool dynamic;
         long dynamic_counter;
         const long N;

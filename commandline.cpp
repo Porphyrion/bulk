@@ -2,9 +2,9 @@
 
 void bulk::CommandLine::notify(){
     for(auto i : subs){
-        i->update(nowCommand);
+        i->update(status);
     }
-    if(nowCommand == stop) commandBlock.clear();
+    if(status == stop) commandBlock.clear();
 };
 
 void bulk::CommandLine::subscribe(Observer * obs){
@@ -42,6 +42,10 @@ void bulk::CommandLine::Commnand(std::string& line){
 };
 
 void bulk::CommandLine::setStatus(int s){
-    nowCommand = s;
+    status = s;
+
+    if(status == last_bulk){
+        if(dynamic) return
+    }else status = stop;
     notify();
 }
