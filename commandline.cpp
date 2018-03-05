@@ -21,7 +21,6 @@ void bulk::CommandLine::setCommnand(std::string& line){
             dynamic_counter++;
         }
     }
-
     else if(line == "}"){
         dynamic_counter--;
         if(dynamic_counter) {
