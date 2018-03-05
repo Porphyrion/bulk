@@ -8,11 +8,9 @@ include_directories(${Boost_INCLUDE_DIR})
 
 add_executable(b main.cpp)
 
-add_library(cl commadline.cpp)
+add_library(bulkLib commandline.cpp cout_observer.cpp log_observer.cpp)
 
-add_library(ob observer.cpp)
-
-set_target_properties(b cl ob PROPERTIES
+set_target_properties(b bulkLib PROPERTIES
 	CXX_STANDART 14
 	CXX_STANDART_REQUIRED ON
 	COMPILE_OPTION -Wpedantic -Wall -Wextra
@@ -21,5 +19,5 @@ set_target_properties(b cl ob PROPERTIES
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 target_link_libraries(b
-    commadline
+    bulkLib
 )
