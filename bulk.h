@@ -6,13 +6,9 @@
 #include <vector>
 #include <string>
 #include <boost/lexical_cast.hpp>
+
 #define start 1
 #define stop 2
-#define work 3
-#define dynamic_start 11
-#define dont_work 99
-#define dynamic_work 88
-
 
 namespace bulk
 {
@@ -25,16 +21,17 @@ namespace bulk
     class CommandLine{
     public:
 
-        CommandLine(long n_) : N(n_), nowCommand(dont_work), counter(0), dynamic_counter(0){};
+        CommandLine(long n_) : N(n_), nowCommand(0), dynamic(false), dynamic_counter(0){};
         void notify();
-        void subscribe(Observer *obs);
-        void setCommnand(std::string& line);
+        void subscribe(Observer* obs);
+        void Commnand(std::string& line);
+        void setStatus(int status);
 
         std::vector<std::string> commandBlock; // retutn unique_ptr
     private:
-        std::vector<bulk::Observer *> subs;
+        std::vector<Observer *> subs;
         int nowCommand;
-        long counter;
+        bool dynamic;
         long dynamic_counter;
         const long N;
     };
@@ -42,7 +39,7 @@ namespace bulk
     //класс обозревателя для стандратного вывода
     class CoutObserver : public Observer{
     public:
-        CoutObserver(CommandLine *cm_){
+        CoutObserver(std::shared_ptr<CommandLine> cm_){
             cm = cm_;
             cm->subscribe(this);
         };
@@ -50,14 +47,14 @@ namespace bulk
         void update(int s);
 
     private:
-        CommandLine * cm;
+        std::shared_ptr<CommandLine> cm;
         std::vector<std::string> bulkBlock;
     };
 
     //класс обозревателя для записи в лог
     class LogObserver : public Observer{
     public:
-        LogObserver(CommandLine *cm_){
+        LogObserver(std::shared_ptr<CommandLine> cm_){
             cm = cm_;
             cm->subscribe(this);
             bulkBeginTime = "";
@@ -66,7 +63,7 @@ namespace bulk
         void update(int s);
     private:
 
-        CommandLine * cm;
+        std::shared_ptr<CommandLine> cm;
         std::string bulkBeginTime;
         std::string bulkFileName;
     };

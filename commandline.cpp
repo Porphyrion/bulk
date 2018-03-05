@@ -4,66 +4,44 @@ void bulk::CommandLine::notify(){
     for(auto i : subs){
         i->update(nowCommand);
     }
+    if(nowCommand == stop) commandBlock.clear();
 };
 
-void bulk::CommandLine::subscribe(Observer *obs){
+void bulk::CommandLine::subscribe(Observer * obs){
         subs.push_back(obs);
 };
 
-void bulk::CommandLine::setCommnand(std::string& line){
+void bulk::CommandLine::Commnand(std::string& line){
 
     if(line == "{"){
-        if(nowCommand == dynamic_work) dynamic_counter++;
-        else{
+        dynamic_counter++;
+        if(dynamic_counter == 1){
             commandBlock.clear();
-            nowCommand = dynamic_start;
-            counter = 0;
-            dynamic_counter++;
+            dynamic = true;
+            setStatus(start);
         }
     }
     else if(line == "}"){
         dynamic_counter--;
-        if(dynamic_counter) {
-            nowCommand = dynamic_work;
+        if(!dynamic_counter){
+            dynamic = false;
+            setStatus(stop);
         }
-        else {
-            nowCommand = stop;
-        }
-    }
-    else if(nowCommand == dont_work ){
-        nowCommand = start;
-        commandBlock.push_back(line);
-        ++counter;
-    }
-    else if(nowCommand == stop){
-        commandBlock.clear();
-        nowCommand = start;
-        ++counter;
-        commandBlock.push_back(line);
     }
     else{
-        if(nowCommand == dynamic_start){
-            nowCommand = dynamic_work;
-            commandBlock.push_back(line);
-        }
-        else if(nowCommand == dynamic_work){
-            commandBlock.push_back(line);
-        }
-        else if (nowCommand == work){
-            commandBlock.push_back(line);
-            ++counter;
-            if(counter == N){
-                nowCommand = stop;
+        commandBlock.push_back(line);
+        if(!dynamic){
+            if(commandBlock.size() == 1){
+                setStatus(start);
             }
-        }
-        else if( nowCommand == start){
-            commandBlock.push_back(line);
-            ++counter;
-            if(counter == N){
-                nowCommand = stop;
-                counter = 0;
+            else if(commandBlock.size() == N){
+                setStatus(stop);
             }
         }
     }
-    notify();
 };
+
+void bulk::CommandLine::setStatus(int s){
+    nowCommand = s;
+    notify();
+}
