@@ -7,7 +7,7 @@ void bulk::LogObserver::update(int s){
     }
     else if(s == stop){
         std::ofstream bulkFile(bulkBeginTime);
-        bulkFile
+        bulkFile<<"bulk ";
         for(auto i : cm->commandBlock){
             bulkFile<<i<<" ";
         }
