@@ -18,24 +18,24 @@ void bulk::CommandLine::Commnand(std::string& line){
         if(dynamic_counter == 1){
             commandBlock.clear();
             dynamic = true;
-            setStatus(start);
+            setStatus(START);
         }
     }
     else if(line == "}"){
         dynamic_counter--;
         if(!dynamic_counter){
             dynamic = false;
-            setStatus(stop);
+            setStatus(STOP);
         }
     }
     else{
         commandBlock.push_back(line);
         if(!dynamic){
             if(commandBlock.size() == 1){
-                setStatus(start);
+                setStatus(START);
             }
             else if(commandBlock.size() == N){
-                setStatus(stop);
+                setStatus(STOP);
             }
         }
     }
