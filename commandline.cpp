@@ -45,7 +45,8 @@ void bulk::CommandLine::setStatus(int s){
     status = s;
 
     if(status == last_bulk){
-        if(dynamic) return
-    }else status = stop;
+        if(dynamic) return;
+    }else
+        status = stop;
     notify();
 }

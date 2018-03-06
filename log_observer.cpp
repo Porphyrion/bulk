@@ -8,7 +8,6 @@ void bulk::LogObserver::update(int s){
     }
     else if(s == stop){
         std::ofstream bulkFile(bulkFileName);
-        bulkFile<<"bulk ";
         for(auto i : cm->commandBlock){
             bulkFile<<i<<" ";
         }

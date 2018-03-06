@@ -22,7 +22,7 @@ namespace bulk
     class CommandLine{
     public:
 
-        CommandLine(long n_) : N(n_), nowCommand(0), dynamic(false), dynamic_counter(0){};
+        CommandLine(long n_) : N(n_), status(0), dynamic(false), dynamic_counter(0){};
         void notify();
         void subscribe(Observer* obs);
         void Commnand(std::string& line);
