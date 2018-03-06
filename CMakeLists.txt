@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(Bulk  VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+project(Bulk VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 find_package(Boost)
 
