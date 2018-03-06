@@ -14,6 +14,6 @@ int main(int argc, char const *argv[]) {
     while(std::getline(std::cin, line)){
         cml->Commnand(line);
     }
-    cml->setStatus(last_bulk);
+    cml->setStatus(LAST_BULK);
     return 0;
 }
