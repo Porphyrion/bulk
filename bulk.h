@@ -7,9 +7,9 @@
 #include <string>
 #include <boost/lexical_cast.hpp>
 
-#define start 1
-#define stop 2
-#define last_bulk 3
+#define START 1
+#define STOP 2
+#define LAST_BULK 3
 
 namespace bulk
 {
@@ -29,8 +29,10 @@ namespace bulk
         void setStatus(int status);
 
         std::vector<std::string> commandBlock;
+
     private:
         std::vector<Observer *> subs;
+
         int status;
         bool dynamic;
         long dynamic_counter;
