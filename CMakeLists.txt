@@ -24,7 +24,7 @@ target_link_libraries(bulk
     bulkLib
 )
 
-install(TARGETS Bulk RUNTIME DESTINATION bin)
+install(TARGETS bulk RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 

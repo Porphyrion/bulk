@@ -10,8 +10,6 @@ int main(int argc, char const *argv[]) {
     bulk::CoutObserver ob(cml);
     bulk::LogObserver lo(cml);
 
-    std::cout<<std::endl;
-
     std::string line;
     while(std::getline(std::cin, line)){
         cml->Commnand(line);
