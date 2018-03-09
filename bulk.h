@@ -10,6 +10,7 @@
 #define START 1
 #define STOP 2
 #define LAST_BULK 3
+#define STRAT_DYNAMIC 11
 
 namespace bulk
 {
@@ -18,57 +19,63 @@ namespace bulk
         virtual void update(int s) = 0;
         virtual ~Observer(){};
     };
-
-    //класс обработки команд из командной строки
-    class CommandLine{
+    
+    class CommandBlock{
     public:
-
-        CommandLine(long n_) : N(n_), status(0), dynamic(false), dynamic_counter(0){};
+        
+        CommandBlock(long N_):status(0),N(N_),dynamic(false) {};
         void notify();
         void subscribe(Observer* obs);
-        void Commnand(std::string& line);
         void setStatus(int status);
-
-        std::vector<std::string> commandBlock;
-
+        void appendCommnad(std::string& command);
+        
+        std::vector<std::string> commands;
+        
     private:
         std::vector<Observer *> subs;
-
         int status;
         bool dynamic;
-        long dynamic_counter;//счетчик открытых/закрытых скобок при динамическом изменнии размера блока
         const long N;
     };
-
+    
     //класс обозревателя для стандратного вывода
     class CoutObserver : public Observer{
     public:
-        CoutObserver(std::shared_ptr<CommandLine> cm_){
-            cm = cm_;
-            cm->subscribe(this);
+        CoutObserver(std::shared_ptr<CommandBlock> cb_): cb(cb_){
+            cb->subscribe(this);
         };
-
+        
         void update(int s);
-
+        
     private:
-        std::shared_ptr<CommandLine> cm;
-        std::vector<std::string> bulkBlock;
+        std::shared_ptr<CommandBlock> cb;
     };
-
+    
     //класс обозревателя для записи в лог
     class LogObserver : public Observer{
     public:
-        LogObserver(std::shared_ptr<CommandLine> cm_){
-            cm = cm_;
-            cm->subscribe(this);
+        LogObserver(std::shared_ptr<CommandBlock> cb_) : cb(cb_){
+            cb->subscribe(this);
             bulkBeginTime = "";
         };
-
+        
         void update(int s);
     private:
-
-        std::shared_ptr<CommandLine> cm;
+        
+        std::shared_ptr<CommandBlock> cb;
         std::string bulkBeginTime;
         std::string bulkFileName;
+    };
+    
+    //Интерпретатор комманд
+    class Interpreter{
+    public:
+        Interpreter(std::shared_ptr<CommandBlock> cb_, long N_) : cb(cb_), dynamic_counter(0){};
+        
+        void readCommand(std::string &command);
+        
+    private:
+        std::shared_ptr<CommandBlock> cb;
+        long dynamic_counter;
     };
 }

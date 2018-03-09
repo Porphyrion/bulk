@@ -10,7 +10,7 @@ configure_file(version.h.in version.h)
 
 add_executable(bulk main.cpp)
 
-add_library(bulkLib commandline.cpp cout_observer.cpp log_observer.cpp)
+add_library(bulkLib interpreter.cpp commandblock.cpp cout_observer.cpp log_observer.cpp)
 
 set_target_properties(bulk bulkLib PROPERTIES
 	CXX_STANDART 14
