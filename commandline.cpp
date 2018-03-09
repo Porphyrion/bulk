@@ -11,42 +11,29 @@ void bulk::CommandLine::subscribe(Observer * obs){
         subs.push_back(obs);
 };
 
-void bulk::CommandLine::Commnand(std::string& line){
+void bulk::CommandLine::setStatus(int s){
+    status = s;
+    if(status == START) commandBlock.clear();
+    if(status == STRAT_DYNAMIC){
+        dynamic = true;
+        status = START;
+    }
+    notify();
+}
 
-    if(line == "{"){
-        dynamic_counter++;
-        if(dynamic_counter == 1){
-            commandBlock.clear();
-            dynamic = true;
+void bulk::CommandLine::appendCommnad(std::string & command){
+    if(!dynamic){
+        if(commandBlock.size() == 0){
             setStatus(START);
         }
-    }
-    else if(line == "}"){
-        dynamic_counter--;
-        if(!dynamic_counter){
-            dynamic = false;
+        commandBlock.push_back(command);
+        if(commandBlock.size() == N){
             setStatus(STOP);
         }
     }
     else{
-        commandBlock.push_back(line);
-        if(!dynamic){
-            if(commandBlock.size() == 1){
-                setStatus(START);
-            }
-            else if(commandBlock.size() == N){
-                setStatus(STOP);
-            }
-        }
+        commandBlock.push_back(command);
     }
-};
 
-void bulk::CommandLine::setStatus(int s){
-    status = s;
 
-    if(status == LAST_BULK){
-        if(dynamic) return;
-        else status = STOP;
-    }
-    notify();
 }

@@ -9,11 +9,12 @@ int main(int argc, char const *argv[]) {
     auto cml = std::make_shared<bulk::CommandLine>(N);
     bulk::CoutObserver ob(cml);
     bulk::LogObserver lo(cml);
+    bulk::Interpreter inter(cml, N);
 
 
     std::string line;
     while(std::getline(std::cin, line)){
-        cml->Commnand(line);
+        inter.readCommand(line);
     }
     cml->setStatus(LAST_BULK);
     return 0;
