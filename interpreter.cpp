@@ -3,15 +3,15 @@
 void bulk::Interpreter::readCommand(std::string &command){
     if(command == "{"){
         if(!dynamic_counter)
-            cl->setStatus(STRAT_DYNAMIC);
+            cb->setStatus(STRAT_DYNAMIC);
         dynamic_counter++;
     }
     else if(command == "}"){
         dynamic_counter--;
         if(!dynamic_counter)
-            cl->setStatus(STOP);
+            cb->setStatus(STOP);
     }
     else{
-        cl->appendCommnad(command);
+        cb->appendCommnad(command);
     }
 };

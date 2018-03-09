@@ -6,7 +6,7 @@ int main(int argc, char const *argv[]) {
 
     long N = atoi(argv[1]);
 
-    auto cml = std::make_shared<bulk::CommandLine>(N);
+    auto cml = std::make_shared<bulk::CommandBlock>(N);
     bulk::CoutObserver ob(cml);
     bulk::LogObserver lo(cml);
     bulk::Interpreter inter(cml, N);

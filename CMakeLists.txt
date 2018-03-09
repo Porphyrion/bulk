@@ -8,7 +8,7 @@ include_directories(${Boost_INCLUDE_DIR})
 
 add_executable(b main.cpp)
 
-add_library(bulkLib commandline.cpp cout_observer.cpp interpreter.cpp log_observer.cpp)
+add_library(bulkLib commandblock.cpp cout_observer.cpp interpreter.cpp log_observer.cpp)
 
 set_target_properties(b bulkLib PROPERTIES
 	CXX_STANDART 14
