@@ -3,7 +3,7 @@
 void bulk::Interpreter::readCommand(std::string &command){
     if(command == "{"){
         if(!dynamic_counter)
-            cb->setStatus(STRAT_DYNAMIC);
+            cb->setStatus(START_DYNAMIC);
         dynamic_counter++;
     }
     else if(command == "}"){

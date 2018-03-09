@@ -10,7 +10,7 @@
 #define START 1
 #define STOP 2
 #define LAST_BULK 3
-#define STRAT_DYNAMIC 11
+#define START_DYNAMIC 11
 
 namespace bulk
 {
