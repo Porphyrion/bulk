@@ -2,7 +2,7 @@
 
 void bulk::CoutObserver::update(int s){
     if(s == STOP){
-        std::cout<<"\nbulk: ";
+        std::cout<<"bulk: ";
         for(auto i : cb->commands){
             std::cout<<i<<" ";
         }

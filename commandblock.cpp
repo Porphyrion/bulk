@@ -18,12 +18,13 @@ void bulk::CommandBlock::setStatus(int s){
     status = s;
     if(status == START) commands.clear();
     else if(status == START_DYNAMIC){
-        setStatus(STOP);
+        if(commands.size())
+            setStatus(STOP);
         dynamic = true;
         status = START;
     }
     else if(LAST_BULK){
-        if(!dynamic) status = STOP;
+        if(!dynamic &&  commands.size() > 0) status = STOP;
     }
     notify();
 }

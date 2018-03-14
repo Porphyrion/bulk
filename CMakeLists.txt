@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 
 project(bulk)
 
-find_package(Boost COMPONENTS lexical_cast)
+find_package(Boost COMPONENTS)
 
 include_directories(${Boost_INCLUDE_DIR})
 
