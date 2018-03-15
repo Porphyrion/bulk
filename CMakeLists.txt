@@ -13,12 +13,10 @@ add_executable(bulk main.cpp)
 add_library(bulkLib interpreter.cpp commandblock.cpp cout_observer.cpp log_observer.cpp)
 
 set_target_properties(bulk bulkLib PROPERTIES
-	CXX_STANDART 14
+	CXX_STANDARD 14
 	CXX_STANDART_REQUIRED ON
 	COMPILE_OPTION -Wpedantic -Wall -Wextra
 	)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 target_link_libraries(bulk
     bulkLib

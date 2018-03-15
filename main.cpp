@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include "bulk.h"
 
@@ -10,8 +11,6 @@ int main(int argc, char const *argv[]) {
     bulk::CoutObserver ob(cb);
     bulk::LogObserver lo(cb);
     bulk::Interpreter inter(cb, N);
-    
-    
     std::string line;
     while(std::getline(std::cin, line)){
         inter.readCommand(line);

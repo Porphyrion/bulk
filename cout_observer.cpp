@@ -2,11 +2,10 @@
 
 void bulk::CoutObserver::update(int s){
     if(s == STOP){
-        std::cout<<std::endl<<"bulk: ";
+        std::cout<<"bulk: ";
         for(auto i : cb->commands){
             std::cout<<i<<" ";
         }
         std::cout<<std::endl;
     }
 };
-
