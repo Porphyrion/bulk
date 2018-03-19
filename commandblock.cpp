@@ -23,7 +23,7 @@ void bulk::CommandBlock::setStatus(Status s){
         dynamic = true;
         status = Status::start;
     }
-    else if(LAST_BULK){
+    else if(status == Status::last_bulk){
         if(!dynamic &&  commands.size() > 0) status = Status::stop;
     }
     notify();
