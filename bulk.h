@@ -7,11 +7,6 @@
 #include <string>
 #include <boost/lexical_cast.hpp>
 
-#define START 1
-#define STOP 2
-#define LAST_BULK 3
-#define START_DYNAMIC 11
-
 enum class Status{
     nothing,start, stop, last_bulk, start_dynamic
 };
