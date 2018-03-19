@@ -12,28 +12,33 @@
 #define LAST_BULK 3
 #define START_DYNAMIC 11
 
+enum class Status{
+    nothing,start, stop, last_bulk, start_dynamic
+};
+
 namespace bulk
 {
+    
     class Observer{
     public:
-        virtual void update(int s) = 0;
+        virtual void update(Status s) = 0;
         virtual ~Observer(){};
     };
     
     class CommandBlock{
     public:
         
-        CommandBlock(long N_):status(0),N(N_),dynamic(false) {};
+        CommandBlock(long N_):status(Status::nothing),N(N_),dynamic(false) {};
         void notify();
         void subscribe(Observer* obs);
-        void setStatus(int status);
+        void setStatus(Status status);
         void appendCommnad(std::string& command);
         
         std::vector<std::string> commands;
         
     private:
         std::vector<Observer *> subs;
-        int status;
+        Status status;
         bool dynamic;
         const long N;
     };
@@ -45,7 +50,7 @@ namespace bulk
             cb->subscribe(this);
         };
         
-        void update(int s);
+        void update(Status s);
         
     private:
         std::shared_ptr<CommandBlock> cb;
@@ -59,7 +64,7 @@ namespace bulk
             bulkBeginTime = "";
         };
         
-        void update(int s);
+        void update(Status s);
     private:
         
         std::shared_ptr<CommandBlock> cb;

@@ -4,7 +4,7 @@ void bulk::CommandBlock::notify(){
     for(auto i : subs){
         i->update(status);
     }
-    if(status == STOP) {
+    if(status == Status::stop) {
         commands.clear();
         if(dynamic) dynamic = false;
     }
@@ -14,17 +14,17 @@ void bulk::CommandBlock::subscribe(Observer * obs){
     subs.push_back(obs);
 };
 
-void bulk::CommandBlock::setStatus(int s){
+void bulk::CommandBlock::setStatus(Status s){
     status = s;
-    if(status == START) commands.clear();
-    else if(status == START_DYNAMIC){
+    if(status == Status::start) commands.clear();
+    else if(status == Status::start_dynamic){
         if(commands.size())
-            setStatus(STOP);
+            setStatus(Status::stop);
         dynamic = true;
-        status = START;
+        status = Status::start;
     }
     else if(LAST_BULK){
-        if(!dynamic &&  commands.size() > 0) status = STOP;
+        if(!dynamic &&  commands.size() > 0) status = Status::stop;
     }
     notify();
 }
@@ -32,11 +32,11 @@ void bulk::CommandBlock::setStatus(int s){
 void bulk::CommandBlock::appendCommnad(std::string & command){
     if(!dynamic){
         if(commands.size() == 0){
-            setStatus(START);
+            setStatus(Status::start);
         }
         commands.push_back(command);
         if(commands.size() == N){
-            setStatus(STOP);
+            setStatus(Status::stop);
         }
     }
     else{

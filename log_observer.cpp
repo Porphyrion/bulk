@@ -1,12 +1,12 @@
 #include "bulk.h"
 
-void bulk::LogObserver::update(int s){
-    if(s == START){
+void bulk::LogObserver::update(Status s){
+    if(s == Status::start){
         bulkBeginTime = boost::lexical_cast<std::string>(time(nullptr));
         bulkFileName = bulkBeginTime;
         bulkFileName.append(".log");
     }
-    else if(s == STOP){
+    else if(s == Status::stop){
         std::ofstream bulkFile(bulkFileName, std::ios::out | std::ios::app);
         bulkFile<<"bulk: ";
         for(auto i : cb->commands){
@@ -16,4 +16,3 @@ void bulk::LogObserver::update(int s){
         bulkFile.close();
     }
 };
-

@@ -15,6 +15,6 @@ int main(int argc, char const *argv[]) {
     while(std::getline(std::cin, line)){
         inter.readCommand(line);
     }
-    cb->setStatus(LAST_BULK);
+    cb->setStatus(Status::last_bulk);
     return 0;
 }
