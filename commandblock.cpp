@@ -1,7 +1,7 @@
 #include "bulk.h"
 
 void bulk::CommandBlock::notify(){
-    for(auto i : subs){
+    for(auto& i : subs){
         i->update(status);
     }
     if(status == Status::stop) {
@@ -10,8 +10,8 @@ void bulk::CommandBlock::notify(){
     }
 };
 
-void bulk::CommandBlock::subscribe(Observer * obs){
-    subs.push_back(obs);
+void bulk::CommandBlock::subscribe(std::unique_ptr<Observer> obs){
+    subs.push_back(std::move(obs));
 };
 
 void bulk::CommandBlock::setStatus(Status s){
